@@ -34,6 +34,7 @@
                 type="email"
                 label="Email"
                 bg-color="blue-grey-lighten-5"
+                class="mb-3"
                 v-model="email.value.value"
                 :error-messages="email.errorMessage.value"
             />
@@ -41,6 +42,7 @@
                 type="password"
                 label="Password"
                 bg-color="blue-grey-lighten-5"
+                class="mb-3"
                 v-model="password.value.value"
                 :error-messages="password.errorMessage.value"
             />
