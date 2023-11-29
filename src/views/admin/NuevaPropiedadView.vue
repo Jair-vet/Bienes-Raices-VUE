@@ -1,6 +1,27 @@
 <script setup>
+    import { useField, useForm } from "vee-validate"
+    import { validationSchema, imageSchema } from '@/validation/propiedadSchema'
+    
 
     const items = [1,2,3,4,5]
+    const { handleSubmit } = useForm({
+        validationSchema : {
+            ...validationSchema,
+            ...imageSchema
+        }
+    })
+
+    const titulo = useField('titulo')
+    const imagen = useField('imagen')
+    const precio = useField('precio')
+    const habitaciones = useField('habitaciones')
+    const wc = useField('wc')
+    const estacionamiento = useField('estacionamiento')
+    const descripcion = useField('descripcion')
+    
+    const submit = handleSubmit((values) => {
+
+    })
 </script>
 <template>
     <v-card max-width="800" flat class="mx-auto my-10">
@@ -22,6 +43,8 @@
             <v-text-field 
                 class="mb-5"
                 label="Titulo Propiedad"
+                v-model="titulo.value.value"
+                :error-messages="titulo.errorMessage.value"
             />
             <!-- Image -->
             <v-file-input 
@@ -29,13 +52,17 @@
                 label="Image"
                 prepend-icon="mdi-camera"
                 class="mb-5"
+                v-model="imagen.value.value"
+                :error-messages="imagen.errorMessage.value"
             />
-
+                
             <v-text-field 
                 class="mb-5"
                 label="Precio"
+                v-model="precio.value.value"
+                :error-messages="precio.errorMessage.value"
             />
-
+                
             <v-row>
                 <!-- Habitaciones -->
                 <v-col
@@ -46,6 +73,8 @@
                         label="Habitaciones"
                         class="mb-5"
                         :items="items"
+                        v-model="habitaciones.value.value"
+                        :error-messages="habitaciones.errorMessage.value"
                     />
                 </v-col>
                 <!-- Baños -->
@@ -57,6 +86,8 @@
                         label="WC"
                         class="mb-5"
                         :items="items"
+                        v-model="wc.value.value"
+                        :error-messages="wc.errorMessage.value"
                     />
                 </v-col>
                 <!-- Estacionamiento -->
@@ -68,16 +99,24 @@
                         label="Lugares Estacionamiento"
                         class="mb-5"
                         :items="items"
+                        v-model="estacionamiento.value.value"
+                        :error-messages="estacionamiento.errorMessage.value"
                     />
                 </v-col>
             </v-row>
 
-            <v-textarea class="mb-5" label="Descripción"></v-textarea>
+            <v-textarea 
+                class="mb-5" 
+                label="Descripción" 
+                v-model="descripcion.value.value"
+                :error-messages="descripcion.errorMessage.value"
+            ></v-textarea>
             <v-checkbox label="Alberca"/>
 
             <v-btn
                 color="deep-purple-accent-4"
                 block
+                @click="submit"
             >Agregar Propiedad</v-btn>
     
         </v-form>
