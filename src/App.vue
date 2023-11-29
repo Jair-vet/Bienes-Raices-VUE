@@ -24,7 +24,7 @@
           <!-- Autenticado -->
           <div v-if="auth.isAuth">
             <v-btn :to="{name: 'admin-propiedades'}"> Admin </v-btn>
-            <v-btn> Cerrar Sesión </v-btn>
+            <v-btn @click="auth.logout"> Cerrar Sesión </v-btn>
           </div>
           <!-- No esta Autenticado -->
           <div v-else>
