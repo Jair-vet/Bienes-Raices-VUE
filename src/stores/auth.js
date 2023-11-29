@@ -7,6 +7,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const auth = useFirebaseAuth()
 
+    const authUser = ref({})
     const errorMsg = ref('')
     const errorCodes = {
         'auth/invalid-credential': 'Usuario No Encontrado'
@@ -15,7 +16,10 @@ export const useAuthStore = defineStore('auth', () => {
     const login = ({email, password}) =>{
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log(userCredential);
+                const user = userCredential.user
+                authUser.value = user
+
+                
             })
             .catch(error => {
                 errorMsg.value =  errorCodes[error.code] 
