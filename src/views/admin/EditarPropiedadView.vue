@@ -50,7 +50,12 @@
 
         const { imagen, ...propiedad  } = values
         if(image.value){
-
+            const data = {
+                ...propiedad,
+                ubicacion: center.value,
+                imagen: url.value
+            }
+            await updateDoc(docRef, data)
         }else{
             const data = {
                 ...propiedad,
