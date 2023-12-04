@@ -4,9 +4,12 @@
     import { useFirestore } from "vuefire";
     import { collection, addDoc } from "firebase/firestore"; 
     import { useRouter } from "vue-router";
+    import useImage from '@/composable/useImage'
 
 
     const items = [1,2,3,4,5]
+
+    const { uploadImage, image, url } = useImage()
 
     const db = useFirestore()
     const router = useRouter()
@@ -35,7 +38,8 @@
         const { imagen, ...propiedad } = values
 
         const docRef = await addDoc(collection(db, "propiedades"), {
-            ...propiedad
+            ...propiedad,
+            imagen: url.value
         });
         if(docRef.id){
             router.push({name: 'admin-propiedades'})
@@ -75,7 +79,13 @@
                 class="mb-5"
                 v-model="imagen.value.value"
                 :error-messages="imagen.errorMessage.value"
+                @change="uploadImage"
             />
+
+            <v-col v-if="image" align="center" justify="center" class="flex-column justify-center align-center">
+                <p class="font-weight-bold">Imagen Propiedad</p>
+                <img class="w-50" :src="image"/>
+            </v-col>
                 
             <v-text-field 
                 class="mb-5"
