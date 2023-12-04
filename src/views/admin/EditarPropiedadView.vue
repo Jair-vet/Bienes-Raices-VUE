@@ -1,5 +1,5 @@
 <script setup>
-    import { useRoute } from 'vue-router'
+    import { useRoute, useRouter } from 'vue-router'
     import { useFirestore, useDocument } from 'vuefire'
     import { doc, updateDoc } from 'firebase/firestore'
     import { useField, useForm } from 'vee-validate'
@@ -8,6 +8,7 @@
     import useLocationMap from '@/composable/useLocationMap'
     import "leaflet/dist/leaflet.css"
     import { LMap, LGeoJson, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
+    import { watch } from 'vue'
 
     const items = [1,2,3,4,5]
 
@@ -27,14 +28,37 @@
 
 
     const route = useRoute()
+    const router = useRouter()
 
     // Obtener la Propiedad a editar
     const db = useFirestore()
     const docRef = doc(db, 'propiedades', route.params.id)
     const propiedad = useDocument(docRef)
 
-    const submit = handleSubmit( values => {
-        
+    watch(propiedad, (propiedad) => {
+        titulo.value.value = propiedad.titulo
+        precio.value.value = propiedad.precio
+        habitaciones.value.value = propiedad.habitaciones
+        wc.value.value = propiedad.wc
+        estacionamiento.value.value = propiedad.estacionamiento
+        descripcion.value.value = propiedad.descripcion
+        alberca.value.value = propiedad.alberca
+        center.value.value = propiedad.ubicacion
+    })
+
+    const submit = handleSubmit( async values => {
+
+        const { imagen, ...propiedad  } = values
+        if(image.value){
+
+        }else{
+            const data = {
+                ...propiedad,
+                ubicacion: center.value
+            }
+            await updateDoc(docRef, data)
+        }
+        router.push({ name: 'admin-propiedades' })
     })
 
 
@@ -66,9 +90,19 @@
                 @change="uploadImage"
             ></v-file-input>
 
-            <div class="my-5">
-                <p class="font-weight-bold">Imagen Actual:</p>
-            </div>
+            <v-col align="center" justify="center" class="flex-column justify-center align-center">
+                <p class="font-weight-bold">Imagen Actual</p>
+                <img 
+                    v-if="image"
+                    class="w-50" 
+                    :src="image"
+                />
+                <img 
+                    v-else
+                    class="w-50" 
+                    :src="propiedad?.imagen"
+                />
+            </v-col>
 
 
             <v-text-field
