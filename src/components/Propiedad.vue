@@ -37,6 +37,7 @@
                     block
                     color="info"
                     variant="tonal"
+                    :to="{name: 'propiedad', params: {id: propiedad.id} }"
                 >
                     Ver Información
                 </v-btn>
