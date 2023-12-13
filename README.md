@@ -1,29 +1,6 @@
 # vue-bienes-raices
 
-This template should help get you started developing with Vue 3 in Vite.
+### https://bienes-raices-vue.vercel.app/
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+![BienesRaices](https://github.com/Jair-vet/Bienes-Raices-VUE/assets/63264620/96049446-569d-4def-8819-05c16f034383)
